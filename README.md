@@ -129,6 +129,7 @@ Endpoint: `rest-api/products/<product_id>/delete`
 - Django
 - Django REST Framework
 - markdown
+- Swagger UI
 
 ## Authors
 
