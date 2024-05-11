@@ -12,5 +12,5 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(ProductCategory)
 class ProductCategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'category']
+    list_display = ['id', 'name']
     list_per_page = 10

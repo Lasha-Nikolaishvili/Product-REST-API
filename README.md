@@ -1,6 +1,6 @@
 # Django DRF REST API for Product Data Manipulation
 
-This Django project provides a RESTful API for managing product data. It includes endpoints for retrieving, listing, creating, updating, and deleting products.
+This Django project provides a RESTful API for managing product and category data. It includes endpoints for retrieving, listing, creating, updating, and deleting products, as well as categories.
 
 ## Installation
 
@@ -32,7 +32,7 @@ This Django project provides a RESTful API for managing product data. It include
 
 ### Product Detail
 
-Endpoint: `rest-api/products/<product_id>`
+Endpoint: `rest-api/products/<product_id>/`
 
 - Method: GET
 - Description: Retrieves full details of a specific product.
@@ -46,31 +46,33 @@ Endpoint: `rest-api/products/<product_id>`
     "price": "19.95",
     "stock": 12,
     "categories": [
-        "Books"
+        1
     ]
   }
   ```
 
 ### Product List
 
-Endpoint: `rest-api/products`
+Endpoint: `rest-api/products/`
 
 - Method: GET
 - Description: Retrieves a list of all products (name, price) with pagination.
 - Example Response:
   ```json
   {
-    "count": 5,
-    "next": "http://localhost:8000/rest-api/products/?page=2",
+    "count": 3,
+    "next": "http://127.0.0.1:8000/rest-api/products/?page=2",
     "previous": null,
     "results": [
         {
-            "name": "Neuromancer",
-            "price": "14.99"
+            "id": 1,
+            "name": "Black T-Shirt",
+            "price": "25.50"
         },
         {
-            "name": "Didostatis Marjvena",
-            "price": "30.50"
+            "id": 2,
+            "name": "Smart T-Shirt",
+            "price": "250.99"
         }
     ]
   }
@@ -78,7 +80,7 @@ Endpoint: `rest-api/products`
 
 ### Create Product
 
-Endpoint: `rest-api/products/create`
+Endpoint: `rest-api/products/`
 
 - Method: POST
 - Description: Creates a new product.
@@ -100,7 +102,7 @@ Endpoint: `rest-api/products/create`
 
 ### Update Product
 
-Endpoint: `rest-api/products/<product_id>/update`
+Endpoint: `rest-api/products/<product_id>/`
 
 - Method: PUT
 - Description: Updates an existing product.
@@ -117,12 +119,94 @@ Endpoint: `rest-api/products/<product_id>/update`
 
 ### Delete Product
 
-Endpoint: `rest-api/products/<product_id>/delete`
+Endpoint: `rest-api/products/<product_id>/`
 
 - Method: DELETE
 - Description: Deletes an existing product.
 - Parameters:
   - `product_id`: The unique identifier of the product to be deleted.
+
+### Category Detail
+
+Endpoint: `rest-api/categories/<category_id>/`
+
+- Method: GET
+- Description: Retrieves full details of a specific category.
+- Parameters:
+  - `category_id`: The unique identifier of the category.
+- Example Response:
+  ```json
+  {
+    "id": 1,
+    "name": "Books"
+  }
+  ```
+
+### Category List
+
+Endpoint: `rest-api/categories/`
+
+- Method: GET
+- Description: Retrieves a list of all categories.
+- Example Response:
+  ```json
+  [
+    {
+        "id": 1,
+        "name": "Books"
+    },
+    {
+        "id": 2,
+        "name": "Electronics"
+    }
+  ]
+  ```
+
+### Create Category
+
+Endpoint: `rest-api/categories/`
+
+- Method: POST
+- Description: Creates a new category.
+- Body Parameters:
+  - `name` (string): The name of the category.
+- Example Request Body:
+  ```json
+  {
+    "name": "New Category"
+  }
+  ```
+
+### Update Category
+
+Endpoint: `rest-api/categories/<category_id>/`
+
+- Method: PUT
+- Description: Updates an existing category.
+- Parameters:
+  - `category_id`: The unique identifier of the category to be updated.
+  - `name` (string): The updated name of the category.
+- Example Request Body:
+  ```json
+  {
+    "name": "Updated Category"
+  }
+  ```
+
+### Delete Category
+
+Endpoint: `rest-api/categories/<category_id>/`
+
+- Method: DELETE
+- Description: Deletes an existing category.
+- Parameters:
+  - `category_id`: The unique identifier of the category to be deleted.
+
+## Admin User Credentials
+
+- Username: admin
+- Password: admin
+- Email: admin@mail.com
 
 ## Technologies Used
 

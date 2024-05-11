@@ -1,31 +1,26 @@
-from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView
-from rest_api.serializers import ProductSerializer, CreateProductSerializer, ProductListSerializer, \
-    ProductUpdateSerializer
+from rest_framework.viewsets import ModelViewSet
+from rest_api.serializers import (
+    ProductSerializer, ProductListSerializer, ProductUpdateSerializer, ProductCategorySerializer
+)
+from rest_api.permissions import IsAdminOrReadOnly
 from rest_api.paginations import ProductPagination
-from store.models import Product
+from rest_api.utils import SerializerFactory
+from store.models import Product, ProductCategory
 
 
-class ProductDetailView(RetrieveAPIView):
+class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-
-class ProductListView(ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductListSerializer
     pagination_class = ProductPagination
+    permission_classes = [IsAdminOrReadOnly]
+    serializer_class = SerializerFactory(
+        default=ProductSerializer,
+        list=ProductListSerializer,
+        update=ProductUpdateSerializer,
+        partial_update=ProductUpdateSerializer,
+    )
 
 
-class CreateProductView(CreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = CreateProductSerializer
-
-
-class UpdateProductView(UpdateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductUpdateSerializer
-
-
-class DeleteProductView(DestroyAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+class ProductCategoryViewSet(ModelViewSet):
+    queryset = ProductCategory.objects.all()
+    serializer_class = ProductCategorySerializer
+    permission_classes = [IsAdminOrReadOnly]
